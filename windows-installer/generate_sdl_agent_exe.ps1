@@ -13,7 +13,10 @@
 #  ARGUMENTS
 ##############################
 
-Param([string]$version = (Get-Content "$PSScriptRoot\..\windows-installer\VERSION"))
+Param(
+  [string]$version = (Get-Content "$PSScriptRoot\..\windows-installer\VERSION"),
+  [string]$localOutputGemDir
+)
 
 ##############################
 #  TRACING AND ERROR HANDLING
@@ -156,6 +159,15 @@ $plugin_gems_rb = $SRC_ROOT + '\plugin_gems.rb'
 & $GEM_CMD install fluentd:1.11.2 --no-document
 & $RUBY_EXE $gem_installer $core_gems_rb
 & $RUBY_EXE $gem_installer $plugin_gems_rb
+
+
+if ($localOutputGemDir -ne $null) {
+  Push-Location $localOutputGemDir
+  Get-ChildItem
+  & $GEM_CMD build fluent-plugin-google-cloud.gemspec
+  & $GEM_CMD install fluent-plugin-google-cloud*.gem --no-document
+  Pop-Location
+}
 
 ##############################
 #  STEP 4.1 - TEMPORARY HACK TO UPDATE RUBY FILE
