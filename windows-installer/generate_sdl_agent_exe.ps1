@@ -31,6 +31,8 @@ $ErrorActionPreference = 'Stop'
 
 # Just install into current directory for simplicity.
 $BASE_INSTALLER_DIR = [string](Get-Location)
+# Re-enable tracing.
+Set-PSDebug -Trace 1
 
 # The path of where ruby and all gems will be.  This is the portion that will be
 # packaged and zipped up.
@@ -114,6 +116,8 @@ $ProgressPreference = "silentlyContinue"
 Invoke-WebRequest "$RUBY_INSTALLER_LINK" -OutFile "$RUBY_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_INSTALLER_LINK" -OutFile "$NSIS_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_UNZU_INSTALLER_LINK" -OutFile "$NSIS_UNZU_ZIP" -UserAgent "curl/7.60.0"
+# Re-enable tracing.
+Set-PSDebug -Trace 1
 
 
 ##############################
