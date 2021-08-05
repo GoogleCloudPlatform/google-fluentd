@@ -18,6 +18,9 @@ override :ruby, :version => '2.6.5'
 override :zlib, :version => '1.2.8'
 override :rubygems, :version => '3.0.0'
 override :postgresql, :version => '9.3.5'
+# TODO: Remove this override once there's a fix released for
+#       https://github.com/sparklemotion/nokogiri/issues/2302
+override :nokogiri, :version => '1.11.7'
 
 # td-agent dependencies/components
 dependency "td-agent"
