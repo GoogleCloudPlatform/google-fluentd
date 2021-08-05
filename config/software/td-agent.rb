@@ -1,6 +1,10 @@
 name "td-agent"
 #version '' # git ref
 
+# TODO: Remove this override once there's a fix released for
+#       https://github.com/sparklemotion/nokogiri/issues/2302
+override :nokogiri, version: "1.11.7"
+
 dependency "jemalloc"
 dependency "ruby"
 dependency "nokogiri"
