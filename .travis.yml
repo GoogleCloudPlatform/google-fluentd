@@ -1,3 +1,0 @@
-language: c
-install: git clone --depth 1 https://github.com/sstephenson/bats.git bats/bats
-script: bats/bats/bin/bats --tap bats
