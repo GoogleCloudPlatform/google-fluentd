@@ -219,6 +219,9 @@ build do
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_enabled
 
+  # resolve C99 code accidentally introduced in Ruby 2.6.7 and it's still in 2.6.8 :(
+  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version.satisfies?("~> 2.6.7")
+
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
     patch source: "ruby-aix-configure.patch", plevel: 1, env: patch_env
