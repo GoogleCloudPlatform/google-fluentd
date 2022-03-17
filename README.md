@@ -10,7 +10,7 @@ td-agent package is based on [Omnibus-ruby](https://github.com/opscode/omnibus-r
 
 ## Installation
 
-We'll assume you have Ruby 2.4 and Bundler installed. First ensure all required gems are installed and ready to use:
+We'll assume you have Ruby 2.6 and Bundler installed. First ensure all required gems are installed and ready to use:
 
 ```shell
 $ bundle install --binstubs
