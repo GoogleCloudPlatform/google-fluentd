@@ -6,8 +6,7 @@ RUN sed -i \
         -e 's%^# *baseurl=http://mirror%baseurl=http://vault%' \
         /etc/yum.repos.d/CentOS-*.repo
 
-RUN yum -y update \
- && yum -y install \
+RUN yum -y install \
         # Needed for gpg2 and rvm installation.
         curl \
         # Needed for agent build.

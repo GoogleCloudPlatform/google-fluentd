@@ -1,7 +1,6 @@
 FROM centos:7
 
-RUN yum -y update \
- && yum -y install \
+RUN yum -y install \
         # Needed for gpg2 and rvm installation.
         curl \
         # Needed for agent build.

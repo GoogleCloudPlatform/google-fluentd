@@ -1,7 +1,12 @@
 FROM centos:8
 
-RUN yum -y update \
- && yum -y install \
+# CentOS 8 is EOL, so we have to switch to the vault repos.
+RUN sed -i \
+        -e 's%^mirrorlist%#mirrorlist%' \
+        -e 's%^# *baseurl=http://mirror%baseurl=http://vault%' \
+        /etc/yum.repos.d/CentOS-*.repo
+
+RUN yum -y install \
         # Needed for gpg2 and rvm installation.
         curl \
         # Needed for agent build.
@@ -14,6 +19,7 @@ RUN yum -y update \
         rpm-build \
         rpm-sign \
         ruby \
+        valgrind-devel \
         which \
         zlib-devel \
  # RVM GPG keys.
