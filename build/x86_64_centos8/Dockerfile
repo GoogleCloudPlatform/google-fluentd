@@ -9,6 +9,7 @@ RUN sed -i \
 RUN yum -y install \
         # Needed for gpg2 and rvm installation.
         curl \
+        ca-certificates \
         # Needed for agent build.
         autoconf \
         bzip2 \
