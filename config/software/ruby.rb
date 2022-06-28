@@ -28,7 +28,7 @@ license_file "LEGAL"
 # - Note: When updating major version (i.e. 2.2 -> 2.3), gem_dir_version must be
 #   updated to 2.X.0 in td.rb, td-agent-cleanup.rb, td-agent-files.rb, and
 #   td-agent-ui.rb.
-default_version "2.6.9"
+default_version "2.6.10"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -45,7 +45,8 @@ dependency "libyaml"
 # and that's the only one we will ever use.
 dependency "libiconv"
 
-# The checksums below are for the *.tar.gz packages.
+# The checksums below are for the *.tar.gz packages from https://www.ruby-lang.org/en/downloads/releases.
+version("2.6.10")     { source sha256: "0dc609f263d49c4176d5725deefc337273676395985b5e017789373e8cadf16e" }
 version("2.6.9")      { source sha256: "eb7bae7aac64bf9eb2153710a4cafae450ccbb62ae6f63d573e1786178b0efbb" }
 version("2.6.8")      { source sha256: "1807b78577bc08596a390e8a41aede37b8512190e05c133b17d0501791a8ca6d" }
 version("2.6.7")      { source sha256: "e4227e8b7f65485ecb73397a83e0d09dcd39f25efd411c782b69424e55c7a99e" }
@@ -219,8 +220,8 @@ build do
   configure_command << "--with-ext=psych" if version.satisfies?("< 2.3")
   configure_command << "--with-bundled-md5" if fips_enabled
 
-  # resolve C99 code accidentally introduced in Ruby 2.6.7 and it's still in 2.6.8 :(
-  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version.satisfies?("~> 2.6.7")
+  # resolve C99 code accidentally introduced in Ruby 2.6.7. No longer an issue for >= 2.6.10
+  patch source: "ruby-2.6.7_c99.patch", plevel: 1, env: patch_env if version.satisfies?("~> 2.6.7", "< 2.6.10")
 
   if aix?
     # need to patch ruby's configure file so it knows how to find shared libraries
