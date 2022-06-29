@@ -78,17 +78,6 @@ OutFile "${COMPRESSED_NAME}-${VERSION}_unsigned.exe"
 ; Default install location.
 InstallDir "$PROGRAMFILES\Stackdriver\LoggingAgent"
 
-ShowInstDetails show
-  
-SetDetailsPrint both
-
-DetailPrint "123456789"
-
-
-; Require admin level logs access, this is required as we need to read event logs.
-RequestExecutionLevel admin
-
-
 ;--------------------------------
 ; INCLUDES
 ;--------------------------------
