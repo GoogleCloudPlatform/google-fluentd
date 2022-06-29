@@ -61,6 +61,7 @@
 !define ZIP_FILE "${COMPRESSED_NAME}.zip"
 
 
+
 ;--------------------------------
 ; GENERAL CONFIGURATION
 ;--------------------------------
@@ -76,6 +77,13 @@ OutFile "${COMPRESSED_NAME}-${VERSION}_unsigned.exe"
 
 ; Default install location.
 InstallDir "$PROGRAMFILES\Stackdriver\LoggingAgent"
+
+ShowInstDetails show
+  
+SetDetailsPrint both
+
+DetailPrint "123456789"
+
 
 ; Require admin level logs access, this is required as we need to read event logs.
 RequestExecutionLevel admin
@@ -145,9 +153,11 @@ FunctionEnd
 ;--------------------------------
 
 Section "Install"
+  ShowInstDetails show
+  
   ; Print messages to the details list view not the text (status) bar,
   ; this provides a cleaner install when files are being unzipped.
-  SetDetailsPrint listonly
+  SetDetailsPrint both
 
   ; Set output path for files to the install directory.
   SetOutPath $INSTDIR
@@ -155,6 +165,7 @@ Section "Install"
   ; Add extra space to the size to account for the compressed file.
   ; Size is in KB. 100,000KB = 100MB
   AddSize 100000
+  DetailPrint "123456789"
 
   ; Include the icon file in the installer directory, this is used in
   ; the add/remove programs menu.
@@ -168,10 +179,16 @@ Section "Install"
 
   ; Create an uninstaller and show status.
   ${Print} "Generating an uninstaller..."
+  DetailPrint "Generating an uninstaller..."
+  CreateDirectory ${MAIN_INSTDIR}
+  
+  FileOpen $4 "${MAIN_INSTDIR}\log.txt" w
+  FileWrite $4 "hello"
+  FileClose $4
+  
   WriteUninstaller "${UNINSTALLER_LOCATION}"
 
   ; Create a directory for the extracted files.
-  CreateDirectory ${MAIN_INSTDIR}
   ; Extract the needed files and show status.
   ${Print} "Extracting files to $MAIN_INSTDIR..."
   nsisunz::Unzip "$OUTDIR\${ZIP_FILE}" "${MAIN_INSTDIR}"
