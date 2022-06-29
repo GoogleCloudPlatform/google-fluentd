@@ -142,8 +142,6 @@ FunctionEnd
 ;--------------------------------
 
 Section "Install"
-  ShowInstDetails show
-  
   ; Print messages to the details list view not the text (status) bar,
   ; this provides a cleaner install when files are being unzipped.
   SetDetailsPrint both
