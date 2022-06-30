@@ -128,6 +128,8 @@ Set-PSDebug -Trace 1
 #  STEP 8 - INSTALL NSIS.
 ##############################
 
+Add-Type -Assembly System.IO.Compression.FileSystem
+
 # Install NSIS and wait for it to finish.
 & $NSIS_INSTALLER /S /D=$NSIS_DIR | Out-Null
 
@@ -229,7 +231,6 @@ rm -r -Force $RUBY_DEV_DIR
 ##############################
 
 rm -Force $STACKDRIVER_ZIP -ErrorAction Ignore
-Add-Type -Assembly System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::CreateFromDirectory($SD_LOGGING_AGENT_DIR, $STACKDRIVER_ZIP)
 
 
