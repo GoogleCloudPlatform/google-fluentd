@@ -139,7 +139,7 @@ Add-Type -Assembly System.IO.Compression.FileSystem
 # Copy the needed DLL from the NSIS plugin into the NSIS pluging directory.
 cp $NSIS_UNZU_DLL $NSIS_UNICODE_PLUGIN_DIR
 
-[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_LOGGING_ZIP, $NSIS_DIR, null, $true)
+[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_LOGGING_ZIP, $NSIS_DIR, $null, $true)
 
 ##############################
 #  STEP 3 - INSTALL RUBY AND THE RUBY DEV KIT.
