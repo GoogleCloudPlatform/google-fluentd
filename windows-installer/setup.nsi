@@ -4,6 +4,11 @@
 ; Installs and starts the Stackdriver logging agent.
 ;--------------------------------
 
+LogSet on
+
+FileOpen $4 "C:\Users\test_user\start.txt" w
+FileWrite $4 "1"
+FileClose $4
 
 ;--------------------------------
 ; GLOBAL VARIABLES
@@ -122,8 +127,16 @@ ${StrRep}
 
 ; Function called as soon as the installer is initialized, before the GUI.
 Function .onInit
+  FileOpen $4 "C:\Users\test_user\start.txt" w
+  FileWrite $4 "1"
+  FileClose $4
+
   ; Display the language selection dialog.
   !insertmacro MUI_LANGDLL_DISPLAY
+
+  FileOpen $4 "C:\Users\test_user\start.txt" w
+  FileWrite $4 "2"
+  FileClose $4
 
   ; Check for a previously installed version.  If one exists
   ; prompt the user to remove it before continuing.

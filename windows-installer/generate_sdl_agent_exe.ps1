@@ -59,12 +59,14 @@ $NSIS_UNICODE_PLUGIN_DIR = $NSIS_DIR + "\Plugins\x86-unicode"
 $RUBY_INSTALLER = $SD_LOGGING_AGENT_DIR + "\rubyinstaller.exe"
 $NSIS_INSTALLER = $BASE_INSTALLER_DIR + "\nsisinstaller.exe"
 $NSIS_UNZU_ZIP = $BASE_INSTALLER_DIR + "\NSISunzU.zip"
+$NSIS_LOGGING_ZIP = $BASE_INSTALLER_DIR + "\nsis-3.08-log.zip"
 
 
 # Links for each installer.
 $RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.6.5-1/rubyinstaller-devkit-2.6.5-1-x86.exe"
 $NSIS_INSTALLER_LINK = "http://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
 $NSIS_UNZU_INSTALLER_LINK = "http://nsis.sourceforge.net/mediawiki/images/5/5a/NSISunzU.zip"
+$NSIS_LOGGING_ZIP_LINK = "http://prdownloads.sourceforge.net/nsis/nsis-3.08-log.zip"
 
 
 ##############################
@@ -116,9 +118,26 @@ $ProgressPreference = "silentlyContinue"
 Invoke-WebRequest "$RUBY_INSTALLER_LINK" -OutFile "$RUBY_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_INSTALLER_LINK" -OutFile "$NSIS_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_UNZU_INSTALLER_LINK" -OutFile "$NSIS_UNZU_ZIP" -UserAgent "curl/7.60.0"
+Invoke-WebRequest "$NSIS_LOGGING_ZIP_LINK" -OutFile "$NSIS_LOGGING_ZIP" -UserAgent "curl/7.60.0"
+
 # Re-enable tracing.
 Set-PSDebug -Trace 1
 
+
+##############################
+#  STEP 8 - INSTALL NSIS.
+##############################
+
+# Install NSIS and wait for it to finish.
+& $NSIS_INSTALLER /S /D=$NSIS_DIR | Out-Null
+
+# Unpack the nsis unzip plugin.
+[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_UNZU_ZIP, $NSIS_UNZU_DIR)
+
+# Copy the needed DLL from the NSIS plugin into the NSIS pluging directory.
+cp $NSIS_UNZU_DLL $NSIS_UNICODE_PLUGIN_DIR
+
+[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_LOGGING_ZIP, $NSIS_DIR, true)
 
 ##############################
 #  STEP 3 - INSTALL RUBY AND THE RUBY DEV KIT.
@@ -213,19 +232,6 @@ rm -Force $STACKDRIVER_ZIP -ErrorAction Ignore
 Add-Type -Assembly System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::CreateFromDirectory($SD_LOGGING_AGENT_DIR, $STACKDRIVER_ZIP)
 
-
-##############################
-#  STEP 8 - INSTALL NSIS.
-##############################
-
-# Install NSIS and wait for it to finish.
-& $NSIS_INSTALLER /S /D=$NSIS_DIR | Out-Null
-
-# Unpack the nsis unzip plugin.
-[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_UNZU_ZIP, $NSIS_UNZU_DIR)
-
-# Copy the needed DLL from the NSIS plugin into the NSIS pluging directory.
-cp $NSIS_UNZU_DLL $NSIS_UNICODE_PLUGIN_DIR
 
 
 ##############################
