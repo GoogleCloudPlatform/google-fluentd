@@ -136,6 +136,55 @@ Function .onInit
   InitPluginsDir
 FunctionEnd
 
+!define /IfNDef LVM_GETITEMCOUNT 0x1004
+!define /IfNDef LVM_GETITEMTEXTA 0x102D
+!define /IfNDef LVM_GETITEMTEXTW 0x1073
+!if "${NSIS_CHAR_SIZE}" > 1
+!define /IfNDef LVM_GETITEMTEXT ${LVM_GETITEMTEXTW}
+!else
+!define /IfNDef LVM_GETITEMTEXT ${LVM_GETITEMTEXTA}
+!endif
+ 
+Function DumpLog
+  Exch $5
+  Push $0
+  Push $1
+  Push $2
+  Push $3
+  Push $4
+  Push $6
+  FindWindow $0 "#32770" "" $HWNDPARENT
+  GetDlgItem $0 $0 1016
+  StrCmp $0 0 exit
+  FileOpen $5 $5 "w"
+  StrCmp $5 "" exit
+    SendMessage $0 ${LVM_GETITEMCOUNT} 0 0 $6
+    System::Call '*(&t${NSIS_MAX_STRLEN})p.r3'
+    StrCpy $2 0
+    System::Call "*(i, i, i, i, i, p, i, i, i) i  (0, 0, 0, 0, 0, r3, ${NSIS_MAX_STRLEN}) .r1"
+    loop: StrCmp $2 $6 done
+      System::Call "User32::SendMessage(i, i, i, i) i ($0, ${LVM_GETITEMTEXT}, $2, r1)"
+      System::Call "*$3(&t${NSIS_MAX_STRLEN} .r4)"
+      !ifdef DumpLog_As_UTF16LE
+      FileWriteUTF16LE ${DumpLog_As_UTF16LE} $5 "$4$\r$\n"
+      !else
+      FileWrite $5 "$4$\r$\n" ; Unicode will be translated to ANSI!
+      !endif
+      IntOp $2 $2 + 1
+      Goto loop
+    done:
+      FileClose $5
+      System::Free $1
+      System::Free $3
+  exit:
+    Pop $6
+    Pop $4
+    Pop $3
+    Pop $2
+    Pop $1
+    Pop $0
+    Pop $5
+FunctionEnd
 
 ;--------------------------------
 ; INSTALLER SECTIONS
@@ -149,10 +198,17 @@ Section "Install"
   ; Set output path for files to the install directory.
   SetOutPath $INSTDIR
 
+  FileOpen $4 "${INSTDIR}\start.txt" w
+  FileWrite $4 "1"
+  FileClose $4
+
   ; Add extra space to the size to account for the compressed file.
   ; Size is in KB. 100,000KB = 100MB
   AddSize 100000
   DetailPrint "123456789"
+
+  Push "${INSTDIR}\log1.txt"
+  Call DumpLog
 
   ; Include the icon file in the installer directory, this is used in
   ; the add/remove programs menu.
@@ -169,11 +225,13 @@ Section "Install"
   DetailPrint "Generating an uninstaller..."
   CreateDirectory ${MAIN_INSTDIR}
   
-  FileOpen $4 "${MAIN_INSTDIR}\log.txt" w
-  FileWrite $4 "hello"
-  FileClose $4
+  Push "${INSTDIR}\log2.txt"
+  Call DumpLog
   
   WriteUninstaller "${UNINSTALLER_LOCATION}"
+  
+  Push "${INSTDIR}\log3.txt"
+  Call DumpLog
 
   ; Create a directory for the extracted files.
   ; Extract the needed files and show status.
@@ -184,10 +242,14 @@ Section "Install"
   ; Ensure the file unzipped if not notify the user and abort.
   ${If} $0 != "success"
     ${IfNot} ${Silent}
+      ${Print} "Failed to unzip: $0"
       MessageBox MB_OK "Failed to unzip: $0"
     ${EndIf}
     Abort
   ${EndIf}
+
+  Push "${INSTDIR}\log4.txt"
+  Call DumpLog
 
   ; Delete the zip file after extraction.
   Delete "$OUTDIR\${ZIP_FILE}"
@@ -206,6 +268,9 @@ Section "Install"
   ; holders that will be replaced.
   ${Print} "Updating configuration files..."
 
+  Push "${INSTDIR}\log5.txt"
+  Call DumpLog
+
   ; ----- Begin update fluent config -----
 
   ; Be sure to clear any errors before file operations.
@@ -214,6 +279,9 @@ Section "Install"
   ; Open the tempate config to read and create a new config file to write to.
   FileOpen $0 "$OUTDIR\${FLUENTD_CONFIG_TEMPLATE}" "r"
   FileOpen $1 "${FLUENTD_CONFIG_LOCATION}" "w"
+
+  Push "${INSTDIR}\log5.txt"
+  Call DumpLog
 
   ; Write each file from the template config to the new config,
   ; updating each line as needed.
@@ -264,6 +332,9 @@ Section "Install"
   ; Delete the template config.
   Delete "$OUTDIR\${FLUENTD_CONFIG_TEMPLATE}"
 
+  Push "${INSTDIR}\log6.txt"
+  Call DumpLog
+
   ; ----- End update fluent config -----
 
   ; Get the size of the install directory.  This is used to give a proper estimate
@@ -299,6 +370,9 @@ Section "Install"
 
   ; All done!
   ${Print} "Installation Complete"
+    
+  Push "${INSTDIR}\log7.txt"
+  Call DumpLog
 SectionEnd
 
 
