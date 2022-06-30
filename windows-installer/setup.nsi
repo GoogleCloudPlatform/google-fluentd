@@ -4,10 +4,6 @@
 ; Installs and starts the Stackdriver logging agent.
 ;--------------------------------
 
-FileOpen $4 "C:\Users\test_user\start.txt" w
-FileWrite $4 "1"
-FileClose $4
-
 ;--------------------------------
 ; GLOBAL VARIABLES
 ;--------------------------------
