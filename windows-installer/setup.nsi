@@ -198,7 +198,7 @@ Section "Install"
   ; Set output path for files to the install directory.
   SetOutPath $INSTDIR
 
-  FileOpen $4 "${INSTDIR}\start.txt" w
+  FileOpen $4 "$INSTDIR\start.txt" w
   FileWrite $4 "1"
   FileClose $4
 
@@ -207,7 +207,7 @@ Section "Install"
   AddSize 100000
   DetailPrint "123456789"
 
-  Push "${INSTDIR}\log1.txt"
+  Push "$INSTDIR\log1.txt"
   Call DumpLog
 
   ; Include the icon file in the installer directory, this is used in
@@ -225,17 +225,17 @@ Section "Install"
   DetailPrint "Generating an uninstaller..."
   CreateDirectory ${MAIN_INSTDIR}
   
-  Push "${INSTDIR}\log2.txt"
+  Push "$INSTDIR\log2.txt"
   Call DumpLog
   
   WriteUninstaller "${UNINSTALLER_LOCATION}"
   
-  Push "${INSTDIR}\log3.txt"
+  Push "$INSTDIR\log3.txt"
   Call DumpLog
 
   ; Create a directory for the extracted files.
   ; Extract the needed files and show status.
-  ${Print} "Extracting files to $MAIN_INSTDIR..."
+  ${Print} "Extracting files to ${MAIN_INSTDIR}..."
   nsisunz::Unzip "$OUTDIR\${ZIP_FILE}" "${MAIN_INSTDIR}"
   Pop $0
 
@@ -248,7 +248,7 @@ Section "Install"
     Abort
   ${EndIf}
 
-  Push "${INSTDIR}\log4.txt"
+  Push "$INSTDIR\log4.txt"
   Call DumpLog
 
   ; Delete the zip file after extraction.
@@ -268,7 +268,7 @@ Section "Install"
   ; holders that will be replaced.
   ${Print} "Updating configuration files..."
 
-  Push "${INSTDIR}\log5.txt"
+  Push "$INSTDIR\log5.txt"
   Call DumpLog
 
   ; ----- Begin update fluent config -----
@@ -280,7 +280,7 @@ Section "Install"
   FileOpen $0 "$OUTDIR\${FLUENTD_CONFIG_TEMPLATE}" "r"
   FileOpen $1 "${FLUENTD_CONFIG_LOCATION}" "w"
 
-  Push "${INSTDIR}\log5.txt"
+  Push "$INSTDIR\log5.txt"
   Call DumpLog
 
   ; Write each file from the template config to the new config,
@@ -332,7 +332,7 @@ Section "Install"
   ; Delete the template config.
   Delete "$OUTDIR\${FLUENTD_CONFIG_TEMPLATE}"
 
-  Push "${INSTDIR}\log6.txt"
+  Push "$INSTDIR\log6.txt"
   Call DumpLog
 
   ; ----- End update fluent config -----
@@ -371,7 +371,7 @@ Section "Install"
   ; All done!
   ${Print} "Installation Complete"
     
-  Push "${INSTDIR}\log7.txt"
+  Push "$INSTDIR\log7.txt"
   Call DumpLog
 SectionEnd
 
