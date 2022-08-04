@@ -18,8 +18,10 @@ name "openssl"
 
 # Temporary overrides of the upstream openssl version from 1.0.2zb to 1.1.1q to pick up CVE fixes.
 # Background: https://github.com/chef/omnibus-software/pull/1682
-# The only difference between this file and the upstream at https://github.com/chef/omnibus-software/blob/a901ec26f8c704ba793c0609319f00f49e630d6b/config/software/openssl.rb is the "default_version".
+# The only difference between this file and the upstream at https://github.com/chef/omnibus-software/blob/a901ec26f8c704ba793c0609319f00f49e630d6b/config/software/openssl.rb
+# is the added openssl `1.1.1q` hash and the change of the "default_version".
 # The commit above is taken from https://github.com/GoogleCloudPlatform/google-fluentd/blob/57603141f950d1f3b919fe33f138c2c3e681a240/Gemfile.lock#L3 (with omnibus-software 4.0.0)
+#
 # TODO: remove this file after the we are able to upgrade to upstream ombibus-software version that comes with 1.1.1q+ version of openssl.
 overrides
 
