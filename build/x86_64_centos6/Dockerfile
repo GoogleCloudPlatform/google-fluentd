@@ -25,6 +25,7 @@ RUN yum -y install \
         ruby \
         which \
         zlib-devel \
+        xz \
  # Do this again, since centos-release-SCL adds another repo.
  && sed -i \
         -e 's%^mirrorlist%#mirrorlist%' \
