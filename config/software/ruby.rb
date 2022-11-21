@@ -32,7 +32,7 @@ default_version "2.6.10"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
-dependency "patch" if solaris2? && platform_version.satisfies?("= 5.10")
+dependency "patch" if solaris_10?
 dependency "ncurses" unless windows? || version.satisfies?(">= 2.1")
 dependency "zlib"
 dependency "openssl"
@@ -140,7 +140,7 @@ elsif aix?
   env["SOLIBS"] = "-lm -lc"
   # need to use GNU m4, default m4 doesn't work
   env["M4"] = "/opt/freeware/bin/m4"
-elsif solaris2? && platform_version.satisfies?("= 5.10")
+elsif solaris_10?
   if sparc?
     # Known issue with rubby where too much GCC optimization blows up miniruby on sparc
     env["CFLAGS"] << " -std=c99 -O0 -g -pipe -mcpu=v9"
@@ -164,18 +164,18 @@ build do
   patch_env = env.dup
   patch_env["PATH"] = "/opt/freeware/bin:#{env['PATH']}" if aix?
 
-  if solaris2? && platform_version.satisfies?("= 5.10") && version.satisfies?(">= 2.1")
+  if solaris_10? && version.satisfies?(">= 2.1")
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
-  elsif solaris2? && platform_version.satisfies?("= 5.10") && version =~ /^1.9/
+  elsif solaris_10? && version =~ /^1.9/
     patch source: "ruby-sparc-1.9.3-c99.patch", plevel: 1, env: patch_env
-  elsif solaris2? && platform_version.satisfies?("= 5.11") && version =~ /^2.1/
+  elsif solaris_11? && version =~ /^2.1/
     patch source: "ruby-solaris-linux-socket-compat.patch", plevel: 1, env: patch_env
   end
 
   # wrlinux7/ios_xr build boxes from Cisco include libssp and there is no way to
   # disable ruby from linking against it, but Cisco switches will not have the
   # library.  Disabling it as we do for Solaris.
-  if UBY_PLATFORM.match("ios_xr") && version.satisfies?(">= 2.1")
+  if ios_xr? && version.satisfies?(">= 2.1")
     patch source: "ruby-no-stack-protector.patch", plevel: 1, env: patch_env
   end
 
