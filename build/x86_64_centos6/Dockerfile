@@ -44,5 +44,5 @@ RUN yum -y install \
  # RVM requires running in a login shell.
  # Force RVM to link in a newer openssl version.
  && /bin/bash -l -c 'sed -i "/openssl_version/s/1.0.1i/1.0.1n/" $rvm_path/config/db && rvm pkg install openssl' \
- && /bin/bash -l -c 'rvm requirements && rvm install 2.5.3 --with-openssl-dir=$rvm_path/usr && gem install bundler --no-document && gem update' \
+ && /bin/bash -l -c 'rvm requirements && rvm install 2.7.6 --with-openssl-dir=$rvm_path/usr && gem install bundler --no-document && gem update' \
  && yum -y clean all

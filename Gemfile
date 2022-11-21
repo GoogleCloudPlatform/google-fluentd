@@ -4,15 +4,17 @@ source 'https://rubygems.org'
 gem 'berkshelf', '~> 3.0'
 
 # Install omnibus software
-gem 'omnibus', :github => 'chef/omnibus', :branch => '7.0.9'
-gem 'omnibus-software', :github => 'chef/omnibus-software' #, :branch => 'omnibus/3.2-stable'
+gem 'omnibus', :github => 'chef/omnibus'
+gem 'omnibus-software', :github => 'chef/omnibus-software'
 
+gem 'ohai', '>17.7'
+gem 'chef-cleanroom', '1.0.1'
 # Use open_uri_redirections to allow HTTPS -> HTTP redirections in omnibus
 gem 'open_uri_redirections', '0.2.1'
 
 # Use Test Kitchen with Vagrant for convering the build environment
-gem 'test-kitchen',    '~> 1.2'
-gem 'kitchen-vagrant', '~> 0.14'
+gem 'test-kitchen',    '~> 2.4'
+gem 'kitchen-vagrant', '~> 1.6'
 
 group :test do
   gem 'rake', '~> 10.1.0'
