@@ -154,7 +154,6 @@ $core_gems_rb = $SRC_ROOT + '\core_gems.rb'
 $plugin_gems_rb = $SRC_ROOT + '\plugin_gems.rb'
 # Pin ffi version until https://github.com/ffi/ffi/issues/868 is resolved.
 & $GEM_CMD install ffi:1.14.1 --no-document
-& $GEM_CMD install rake --force
 
 # Note: In order to update the Fluentd version, please update both here and also
 # the fluentd versions in
