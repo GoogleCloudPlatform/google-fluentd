@@ -62,7 +62,7 @@ $NSIS_UNZU_ZIP = $BASE_INSTALLER_DIR + "\NSISunzU.zip"
 
 
 # Links for each installer.
-$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.6.5-1/rubyinstaller-devkit-2.6.5-1-x86.exe"
+$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.2-1/rubyinstaller-devkit-2.7.2-1-x86.exe"
 $NSIS_INSTALLER_LINK = "http://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
 $NSIS_UNZU_INSTALLER_LINK = "http://nsis.sourceforge.net/mediawiki/images/5/5a/NSISunzU.zip"
 
@@ -154,6 +154,7 @@ $core_gems_rb = $SRC_ROOT + '\core_gems.rb'
 $plugin_gems_rb = $SRC_ROOT + '\plugin_gems.rb'
 # Pin ffi version until https://github.com/ffi/ffi/issues/868 is resolved.
 & $GEM_CMD install ffi:1.14.1 --no-document
+& $GEM_CMD install rake --force
 
 # Note: In order to update the Fluentd version, please update both here and also
 # the fluentd versions in
