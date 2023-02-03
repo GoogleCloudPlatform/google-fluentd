@@ -1,6 +1,6 @@
 dir 'core_gems'
 download "json", "2.1.0"
-download "msgpack", "1.2.9"
+download "msgpack", "1.3.2"
 download "cool.io", "1.6.0"
 download "http_parser.rb", "0.6.0"
 download "yajl-ruby", "1.3.1"
