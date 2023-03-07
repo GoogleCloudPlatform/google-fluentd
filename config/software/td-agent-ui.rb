@@ -14,7 +14,7 @@ build do
     project_name = project.name # for ERB
     project_name_snake = project.name.gsub('-', '_') # for variable names in ERB
     project_name_snake_upcase = project_name_snake.upcase
-    gem_dir_version = "2.7.0"
+    gem_dir_version = "3.1.0"
 
     template = ->(*parts) { File.join('templates', *parts) }
     generate_from_template = ->(dst, src, erb_binding, opts={}) {

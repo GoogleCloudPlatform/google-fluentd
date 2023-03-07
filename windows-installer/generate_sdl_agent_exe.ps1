@@ -62,7 +62,7 @@ $NSIS_UNZU_ZIP = $BASE_INSTALLER_DIR + "\NSISunzU.zip"
 
 
 # Links for each installer.
-$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-2.7.6-1/rubyinstaller-devkit-2.7.6-1-x86.exe"
+$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.3-1/rubyinstaller-devkit-3.1.3-1-x86.exe"
 $NSIS_INSTALLER_LINK = "http://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
 $NSIS_UNZU_INSTALLER_LINK = "http://nsis.sourceforge.net/mediawiki/images/5/5a/NSISunzU.zip"
 
