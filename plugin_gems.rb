@@ -13,7 +13,7 @@ download "fluent-plugin-s3", "1.1.10"
 download "webhdfs", "0.8.0"
 download "fluent-plugin-webhdfs", "1.2.3"
 download "fluent-plugin-rewrite-tag-filter", "2.2.0"
-download "fluent-plugin-google-cloud", "0.12.10"
+download "fluent-plugin-google-cloud", "0.12.11"
 download "fluent-plugin-detect-exceptions", "0.0.12"
 # Keep this version compatible with
 # https://github.com/fluent/fluent-plugin-prometheus/blob/master/fluent-plugin-prometheus.gemspec
