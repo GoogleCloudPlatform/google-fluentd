@@ -1,6 +1,8 @@
 FROM opensuse/leap:42.3
 
-RUN zypper -n refresh \
+RUN zypper modifyrepo -d 'OSS Update' \
+ && zypper ar http://opensuse.ucom.am/update/leap/42.3/oss/ 'OSS Update Mirror' \
+ && zypper -n refresh \
  && zypper -n install \
         # Needed for gpg2 and rvm installation.
         curl \
@@ -15,6 +17,7 @@ RUN zypper -n refresh \
         rpm-build \
         which \
         zlib-devel \
+        xz \
  # RVM GPG keys.
  && mkdir -p ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf \
  && gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
@@ -26,7 +29,7 @@ RUN zypper -n refresh \
  && /bin/bash get-rvm-io.sh stable \
  && rm -f get-rvm-io.sh \
  # RVM requires running in a login shell.
- && /bin/bash -l -c "rvm requirements && rvm install 2.5.3 && gem install bundler --no-document && gem update" \
+ && /bin/bash -l -c "rvm requirements && rvm install 3.1.3 && gem install bundler --no-document && gem update" \
  # Pretend we're on SLES 12.
  && /bin/sed -i -e 's/VERSION = 42.3/VERSION = 12/' /etc/SuSE-release \
  && /bin/sed -i -e 's/VERSION="42.3"/VERSION="12-SP3"/' -e 's/VERSION_ID="42.3"/VERSION_ID="12.3"/' /etc/os-release \

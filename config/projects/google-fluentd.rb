@@ -8,16 +8,16 @@ homepage "http://cloud.google.com/logging/docs/"
 description "Google Fluentd: A data collector for Google Cloud Logging"
 
 install_dir     "/opt/google-fluentd"
-build_version   "1.9.8"
+build_version   "1.10.0"
 build_iteration 1
 
 # creates required build directories
 dependency "preparation"
 
-override :ruby, :version => '2.6.9'
+override :ruby, :version => '3.1.3'
 override :zlib, :version => '1.2.8'
 override :rubygems, :version => '3.0.0'
-override :postgresql, :version => '9.3.5'
+override :postgresql, :version => '9.6.24'
 
 # td-agent dependencies/components
 dependency "td-agent"

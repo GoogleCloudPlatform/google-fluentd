@@ -15,7 +15,7 @@
 #
 
 name "postgresql"
-default_version "9.2.10"
+default_version "9.6.24"
 
 license "PostgreSQL"
 license_file "COPYRIGHT"
@@ -25,6 +25,10 @@ dependency "openssl"
 dependency "libedit"
 dependency "ncurses"
 dependency "config_guess"
+
+version "9.6.24" do
+  source md5: "132c726216a0e4b8540fcf974d25dc06"
+end
 
 version "9.2.14" do
   source md5: "ce2e50565983a14995f5dbcd3c35b627"
