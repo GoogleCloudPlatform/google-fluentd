@@ -31,6 +31,9 @@ RUN yum -y install \
         -e 's%^mirrorlist%#mirrorlist%' \
         -e 's%^# *baseurl=http://mirror%baseurl=http://vault%' \
         /etc/yum.repos.d/CentOS-*.repo \
+ && yum -y install \
+        # Needed for the psych gem native extension.
+        libyaml-devel \
  # CentOS 6 comes with git 1.7.1, and omnibus requires at least 1.7.2.
  && rpm -ivh http://rpmfind.net/linux/dag/redhat/el6/en/x86_64/dag/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm \
  && yum --enablerepo=rpmforge-extras -y upgrade git \
