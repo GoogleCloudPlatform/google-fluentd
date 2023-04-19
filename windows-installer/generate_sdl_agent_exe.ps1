@@ -137,6 +137,17 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 
 
 ##############################
+#  STEP 3.1 - HACK TO PATCH RUBY INCLUDE FILE
+##############################
+
+$needle = 'extern int gettimeofday(struct timeval *, struct timezone *);'
+$replacement = 'extern int gettimeofday(struct timeval *, void *);'
+$win32_h = $SD_LOGGING_AGENT_DIR + '\include\ruby-3.1.0\ruby\win32.h'
+
+(Get-Content $win32_h).replace($needle, $replacement) | Set-Content $win32_h
+
+
+##############################
 #  STEP 4 - INSTALL THE GEMS
 ##############################
 #
