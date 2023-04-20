@@ -39,7 +39,7 @@ Set-PSDebug -Trace 1
 $SD_LOGGING_AGENT_DIR = $BASE_INSTALLER_DIR + "\GoogleStackdriverLoggingAgent"
 
 # The ruby dev kit location.  This is not needed in the final package.
-$RUBY_DEV_DIR = $SD_LOGGING_AGENT_DIR + "\msys32"
+$RUBY_DEV_DIR = $SD_LOGGING_AGENT_DIR + "\msys64"
 
 # The NSIS location.  Used to compile the Stackdriver Logging Agent installer.
 $NSIS_DIR = $BASE_INSTALLER_DIR + "\NSIS"
@@ -62,7 +62,7 @@ $NSIS_UNZU_ZIP = $BASE_INSTALLER_DIR + "\NSISunzU.zip"
 
 
 # Links for each installer.
-$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.2-1/rubyinstaller-devkit-3.1.2-1-x86.exe"
+$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.2-1/rubyinstaller-devkit-3.1.2-1-x64.exe"
 $NSIS_INSTALLER_LINK = "http://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
 $NSIS_UNZU_INSTALLER_LINK = "http://nsis.sourceforge.net/mediawiki/images/5/5a/NSISunzU.zip"
 
@@ -195,7 +195,7 @@ $replacement = (Get-Content $replacement_file) -join("`r`n")
 ##############################
 # Save the C++ runtime DLL to allow running gems with C++ native extensions
 # such as winevt_c.
-$libstd_cpp_dll = $RUBY_DEV_DIR + "\mingw32\bin\libstdc++-6.dll"
+$libstd_cpp_dll = $RUBY_DEV_DIR + "\ucrt64\bin\libstdc++-6.dll"
 cp $libstd_cpp_dll $SD_LOGGING_AGENT_DIR\bin
 
 
