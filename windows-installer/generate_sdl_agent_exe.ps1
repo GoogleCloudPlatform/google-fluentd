@@ -180,7 +180,9 @@ if ($localOutputGemDir -ne $null) {
   Push-Location $localOutputGemDir
   Get-ChildItem
   & $GEM_CMD build fluent-plugin-google-cloud.gemspec
-  & $GEM_CMD install fluent-plugin-google-cloud*.gem --no-document
+  # Newer Ruby devkits ship with msys2 that links with ucrt, so override
+  # the platform. See https://bugs.ruby-lang.org/issues/17845.
+  & $GEM_CMD install fluent-plugin-google-cloud*.gem --no-document --platform=mingw-ucrt
   Pop-Location
 }
 
