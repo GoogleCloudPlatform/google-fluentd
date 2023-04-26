@@ -2,8 +2,13 @@ name "jemalloc"
 default_version "4.5.0"
 
 # for td-agent
-version("2.2.5") do
-  md5 = 'a5c4332705ed0e3fff1ac73cfe975640'
+version("4.5.0") do
+  sha512 = '76953363fe1007952232220afa1a91da4c1c33c02369b5ad239d8dd1d0792141197c15e8489a8f4cd301b08494e65cadd8ecd34d025cb0285700dd78d7248821'
+  source :sha512 => sha512,
+         :url => "http://src.fedoraproject.org/repo/pkgs/jemalloc/jemalloc-#{version}.tar.bz2/sha512/#{sha512}/jemalloc-#{version}.tar.bz2"
+end
+version("4.2.1") do
+  md5 = '094b0a7b8c77c464d0dc8f0643fd3901'
   source :md5 => md5,
          :url => "http://src.fedoraproject.org/repo/pkgs/jemalloc/jemalloc-#{version}.tar.bz2/#{md5}/jemalloc-#{version}.tar.bz2"
 end
@@ -12,15 +17,10 @@ version("3.6.0") do
   source :md5 => md5,
          :url => "http://src.fedoraproject.org/repo/pkgs/jemalloc/jemalloc-#{version}.tar.bz2/#{md5}/jemalloc-#{version}.tar.bz2"
 end
-version("4.2.1") do
-  md5 = '094b0a7b8c77c464d0dc8f0643fd3901'
+version("2.2.5") do
+  md5 = 'a5c4332705ed0e3fff1ac73cfe975640'
   source :md5 => md5,
          :url => "http://src.fedoraproject.org/repo/pkgs/jemalloc/jemalloc-#{version}.tar.bz2/#{md5}/jemalloc-#{version}.tar.bz2"
-end
-version("4.5.0") do
-  sha512 = '76953363fe1007952232220afa1a91da4c1c33c02369b5ad239d8dd1d0792141197c15e8489a8f4cd301b08494e65cadd8ecd34d025cb0285700dd78d7248821'
-  source :sha512 => sha512,
-         :url => "http://src.fedoraproject.org/repo/pkgs/jemalloc/jemalloc-#{version}.tar.bz2/sha512/#{sha512}/jemalloc-#{version}.tar.bz2"
 end
 
 # On Mac, this file blocks package building at health check so add to whitelist
