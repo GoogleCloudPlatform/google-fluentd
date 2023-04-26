@@ -152,7 +152,7 @@ $win32_h = $SD_LOGGING_AGENT_DIR + '\include\ruby-3.1.0\ruby\win32.h'
 ##############################
 
 & $SD_LOGGING_AGENT_DIR\bin\ridk.cmd enable
-#& $SD_LOGGING_AGENT_DIR\bin\ridk.cmd install 1 2 3
+& $SD_LOGGING_AGENT_DIR\bin\ridk.cmd install 1 2 3
 
 ##############################
 #  STEP 4 - INSTALL THE GEMS
