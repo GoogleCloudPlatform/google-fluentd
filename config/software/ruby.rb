@@ -48,6 +48,7 @@ dependency "libyaml"
 # Ignore on windows - TDM GCC comes with libiconv in the runtime
 # and that's the only one we will ever use.
 dependency "libiconv"
+dependency "jemalloc"
 
 # The SHA256 checksums below are for the *.tar.gz packages from https://www.ruby-lang.org/en/downloads/releases.
 version("3.1.3")      { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e1264e17d78732c3a57cd1c6ab9e" }
@@ -227,6 +228,7 @@ build do
 
   configure_command = ["--with-out-ext=dbm,gdbm,probe,racc,sdbm,tk",
                        "--enable-shared",
+                       "--with-jemalloc",
                        "--enable-libedit",
                        "--disable-install-doc",
                        "--without-gmp",
