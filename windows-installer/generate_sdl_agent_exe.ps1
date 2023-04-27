@@ -154,6 +154,18 @@ $win32_h = $SD_LOGGING_AGENT_DIR + '\include\ruby-3.1.0\ruby\win32.h'
 & $SD_LOGGING_AGENT_DIR\bin\ridk.cmd enable
 & $SD_LOGGING_AGENT_DIR\bin\ridk.cmd install 1 2 3
 
+
+##############################
+#  STEP 3.3 - HACK TO PATCH RUBYGEMS (https://github.com/rubygems/rubygems/issues/594).
+##############################
+
+$needle = 'destdir = ''"DESTDIR=%s"'' % ENV[''DESTDIR''] if RUBY_VERSION > ''2.0'''
+$replacement = 'destdir = nil'
+$builder_rb = $SD_LOGGING_AGENT_DIR + '\lib\ruby\3.1.0\rubygems\ext\builder.rb'
+
+(Get-Content $builder_rb).replace($needle, $replacement) | Set-Content $builder_rb
+
+
 ##############################
 #  STEP 4 - INSTALL THE GEMS
 ##############################
