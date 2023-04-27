@@ -148,15 +148,7 @@ $win32_h = $SD_LOGGING_AGENT_DIR + '\include\ruby-3.1.0\ruby\win32.h'
 
 
 ##############################
-#  STEP 3.2 - ENABLE MSYS2
-##############################
-
-& $SD_LOGGING_AGENT_DIR\bin\ridk.cmd enable
-& $SD_LOGGING_AGENT_DIR\bin\ridk.cmd install 1 2 3
-
-
-##############################
-#  STEP 3.3 - HACK TO PATCH RUBYGEMS (https://github.com/rubygems/rubygems/issues/594).
+#  STEP 3.2 - HACK TO PATCH RUBYGEMS (https://github.com/rubygems/rubygems/issues/594).
 ##############################
 
 $needle = 'destdir = ''"DESTDIR=%s"'' % ENV[''DESTDIR''] if RUBY_VERSION > ''2.0'''
