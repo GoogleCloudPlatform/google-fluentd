@@ -155,7 +155,9 @@ $needle = 'destdir = ''"DESTDIR=%s"'' % ENV[''DESTDIR''] if RUBY_VERSION > ''2.0
 $replacement = 'destdir = nil'
 $builder_rb = $SD_LOGGING_AGENT_DIR + '\lib\ruby\3.1.0\rubygems\ext\builder.rb'
 
+Get-Content $builder_rb | Select-String 'DESTDIR='
 (Get-Content $builder_rb).replace($needle, $replacement) | Set-Content $builder_rb
+Get-Content $builder_rb | Select-String 'DESTDIR='
 
 
 ##############################
