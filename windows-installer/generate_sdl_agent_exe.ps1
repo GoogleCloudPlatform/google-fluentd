@@ -151,7 +151,7 @@ $win32_h = $SD_LOGGING_AGENT_DIR + '\include\ruby-3.1.0\ruby\win32.h'
 #  STEP 3.2 - HACK TO PATCH RUBYGEMS (https://github.com/rubygems/rubygems/issues/594).
 ##############################
 
-$needle = 'destdir = ''"DESTDIR=%s"'' % ENV[''DESTDIR''] if RUBY_VERSION > ''2.0'''
+$needle = 'destdir = (/\bnmake/i !~ make_program_name || ENV[''DESTDIR''] && ENV[''DESTDIR''] != "") ? ''DESTDIR=%s'' % ENV[''DESTDIR''] : '''''
 $replacement = 'destdir = nil'
 $builder_rb = $SD_LOGGING_AGENT_DIR + '\lib\ruby\3.1.0\rubygems\ext\builder.rb'
 
