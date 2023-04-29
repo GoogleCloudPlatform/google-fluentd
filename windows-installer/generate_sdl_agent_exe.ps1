@@ -39,7 +39,7 @@ Set-PSDebug -Trace 1
 $SD_LOGGING_AGENT_DIR = $BASE_INSTALLER_DIR + "\GoogleStackdriverLoggingAgent"
 
 # The ruby dev kit location.  This is not needed in the final package.
-$RUBY_DEV_DIR = $SD_LOGGING_AGENT_DIR + "\msys32"
+$RUBY_DEV_DIR = $SD_LOGGING_AGENT_DIR + "\msys64"
 
 # The NSIS location.  Used to compile the Stackdriver Logging Agent installer.
 $NSIS_DIR = $BASE_INSTALLER_DIR + "\NSIS"
@@ -223,6 +223,12 @@ $replacement = (Get-Content $replacement_file) -join("`r`n")
 ##############################
 # Save the C++ runtime DLL to allow running gems with C++ native extensions
 # such as winevt_c.
+
+Push-Location $RUBY_DEV_DIR
+Get-ChildItem -Recurse
+Pop-Location
+
+
 $libstd_cpp_dll = $RUBY_DEV_DIR + "\mingw32\bin\libstdc++-6.dll"
 cp $libstd_cpp_dll $SD_LOGGING_AGENT_DIR\bin
 
