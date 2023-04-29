@@ -9,5 +9,9 @@ download "thread_safe", "0.3.5"
 download "oj", "3.3.10"
 download "tzinfo", "1.2.2"
 download "tzinfo-data", "1.2016.5"
-download "grpc", "1.52.0"
-download "google-protobuf", "3.22.1"
+if windows?
+  # Need to temporarily fetch an older version of grpc on Windows.
+  fetch "grpc", "1.45.0"
+end
+fetch "google-protobuf", "3.22.1"
+fetch "grpc", "1.52.0"
