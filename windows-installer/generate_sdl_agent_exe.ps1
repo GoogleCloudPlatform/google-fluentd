@@ -188,6 +188,10 @@ $plugin_gems_rb = $SRC_ROOT + '\plugin_gems.rb'
 & $RUBY_EXE $gem_installer $core_gems_rb
 & $RUBY_EXE $gem_installer $plugin_gems_rb
 
+# Temporarily install fluent-plugin-google-cloud without dependencies,
+# because earlier grpc does not support ucrt on windows: https://github.com/grpc/grpc/pull/29684.
+& $GEM_CMD install fluent-plugin-google-cloud:0.12.11 --no-document --ignore-dependencies
+
 
 if ($localOutputGemDir -ne $null) {
   Push-Location $localOutputGemDir
