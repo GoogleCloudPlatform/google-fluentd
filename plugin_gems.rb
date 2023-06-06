@@ -16,7 +16,7 @@ download "fluent-plugin-rewrite-tag-filter", "2.2.0"
 # This should be the last released version of the gem in https://rubygems.org/gems/fluent-plugin-google-cloud.
 # The release candidate build will overwrite this gem with a gem version that is built from the master branch
 # later in the build pipeline.
-download "fluent-plugin-google-cloud", "0.12.11"
+download "fluent-plugin-google-cloud", "0.13.0"
 download "fluent-plugin-detect-exceptions", "0.0.15"
 # Keep this version compatible with
 # https://github.com/fluent/fluent-plugin-prometheus/blob/master/fluent-plugin-prometheus.gemspec
