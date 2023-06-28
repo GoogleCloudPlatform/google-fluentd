@@ -47,8 +47,13 @@ $NSIS_DIR = $BASE_INSTALLER_DIR + "\NSIS"
 # The location of the NSIS plugin to unzip files.
 $NSIS_UNZU_DIR = $BASE_INSTALLER_DIR + "\NSISunzU"
 
-# The location for unicode plugins for NSIS.
-$NSIS_UNICODE_PLUGIN_DIR = $NSIS_DIR + "\Plugins\x86-unicode"
+# The location of the NSIS plugin to compute directory sizes.
+$NSIS_LOCATE_DIR = $BASE_INSTALLER_DIR + "\NSISlocate"
+
+# The locations for plugins for NSIS.
+$NSIS_INCLUDE_DIR = $NSIS_DIR + "\Include"
+$NSIS_PLUGIN_DIR = $NSIS_DIR + "\Plugins"
+$NSIS_UNICODE_PLUGIN_DIR = $NSIS_PLUGIN_DIR + "\x86-unicode"
 
 
 ##############################
@@ -59,12 +64,14 @@ $NSIS_UNICODE_PLUGIN_DIR = $NSIS_DIR + "\Plugins\x86-unicode"
 $RUBY_INSTALLER = $SD_LOGGING_AGENT_DIR + "\rubyinstaller.exe"
 $NSIS_INSTALLER = $BASE_INSTALLER_DIR + "\nsisinstaller.exe"
 $NSIS_UNZU_ZIP = $BASE_INSTALLER_DIR + "\NSISunzU.zip"
+$NSIS_LOCATE_ZIP = $BASE_INSTALLER_DIR + "\NSISlocate.zip"
 
 
 # Links for each installer.
 $RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.2-1/rubyinstaller-devkit-3.1.2-1-x64.exe"
-$NSIS_INSTALLER_LINK = "http://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
-$NSIS_UNZU_INSTALLER_LINK = "http://nsis.sourceforge.net/mediawiki/images/5/5a/NSISunzU.zip"
+$NSIS_INSTALLER_LINK = "https://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
+$NSIS_UNZU_INSTALLER_LINK = "https://nsis.sourceforge.io/mediawiki/images/5/5a/NSISunzU.zip"
+$NSIS_LOCATE_INSTALLER_LINK = "https://nsis.sourceforge.io/mediawiki/images/a/af/Locate.zip"
 
 
 ##############################
@@ -85,6 +92,10 @@ $NSIS_MAKE = $NSIS_DIR + "\makensis.exe"
 # The location of the dll of the plugin to unzip files in an NSIS installer.
 $NSIS_UNZU_DLL = $NSIS_UNZU_DIR + "\NSISunzU\Plugin unicode\nsisunz.dll"
 
+# The location of the dll/include of the plugin to compute directory sizes in an NSIS installer.
+$NSIS_LOCATE_DLL = $NSIS_LOCATE_DIR + "\Plugin\locate.dll"
+$NSIS_LOCATE_INCLUDE = $NSIS_LOCATE_DIR + "\Include\Locate.nsh"
+
 # Output location of the zip compliled into the installer. It will place where ever
 # this script it run from.
 $STACKDRIVER_ZIP = $PSScriptRoot + "\GoogleStackdriverLoggingAgent.zip"
@@ -102,6 +113,8 @@ rm -r -Force $SD_LOGGING_AGENT_DIR -ErrorAction Ignore
 mkdir $SD_LOGGING_AGENT_DIR
 rm -r -Force $NSIS_UNZU_DIR -ErrorAction Ignore
 mkdir $NSIS_UNZU_DIR
+rm -r -Force $NSIS_LOCATE_DIR -ErrorAction Ignore
+mkdir $NSIS_LOCATE_DIR
 
 
 ##############################
@@ -116,6 +129,7 @@ $ProgressPreference = "silentlyContinue"
 Invoke-WebRequest "$RUBY_INSTALLER_LINK" -OutFile "$RUBY_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_INSTALLER_LINK" -OutFile "$NSIS_INSTALLER" -UserAgent "curl/7.60.0"
 Invoke-WebRequest "$NSIS_UNZU_INSTALLER_LINK" -OutFile "$NSIS_UNZU_ZIP" -UserAgent "curl/7.60.0"
+Invoke-WebRequest "$NSIS_LOCATE_INSTALLER_LINK" -OutFile "$NSIS_LOCATE_ZIP" -UserAgent "curl/7.60.0"
 # Re-enable tracing.
 Set-PSDebug -Trace 1
 
@@ -224,8 +238,13 @@ Add-Type -Assembly System.IO.Compression.FileSystem
 # Unpack the nsis unzip plugin.
 [System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_UNZU_ZIP, $NSIS_UNZU_DIR)
 
-# Copy the needed DLL from the NSIS plugin into the NSIS pluging directory.
+# Unpack the nsis locate plugin.
+[System.IO.Compression.ZipFile]::ExtractToDirectory($NSIS_LOCATE_ZIP, $NSIS_LOCATE_DIR)
+
+# Copy the needed DLLs from the NSIS plugins into the NSIS plugins directory.
 cp $NSIS_UNZU_DLL $NSIS_UNICODE_PLUGIN_DIR
+cp $NSIS_LOCATE_DLL $NSIS_UNICODE_PLUGIN_DIR
+cp $NSIS_LOCATE_INCLUDE $NSIS_INCLUDE_DIR
 
 
 ##############################

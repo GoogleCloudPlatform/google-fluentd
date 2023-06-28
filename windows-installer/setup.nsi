@@ -86,7 +86,7 @@ RequestExecutionLevel admin
 ;--------------------------------
 
 ; General includes.
-!include "FileFunc.nsh" ; Needed for GetSize
+!include "Locate.nsh" ; Needed for GetSize
 !include "StrFunc.nsh" ; Needed for StrTrimNewLines and StrRep
 !include "WordFunc.nsh" ; Needed for WordFind
 
@@ -264,9 +264,9 @@ Section "Install"
 
   ; Get the size of the install directory.  This is used to give a proper estimate
   ; in the add/remove programs menu.
-  ; "/S=0K" Gets the size in KB
+  ; "/S=Kb" Gets the size in KB
   ; $0 = size, $1 = number of files, $2 = number of directories.
-  ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+  ${locate::GetSize} "$INSTDIR" "/S=Kb" $0 $1 $2
 
   ; Register the software so it will appear in the add/remove programs menu.
   ${Print} "Registering ${DISPLAY_NAME}..."
