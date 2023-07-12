@@ -20,6 +20,9 @@ RUN apt-get update \
         systemd \
         ca-certificates \
         adduser \
+    && apt-get upgrade \
+    && apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/*
     # Install Logging Agent.
     && curl -sS https://dl.google.com/cloudagents/add-logging-agent-repo.sh | REPO_SUFFIX="$REPO_SUFFIX" ARTIFACT_REGISTRY_REGION="$ARTIFACT_REGISTRY_REGION" REPO_CODENAME=stretch DO_NOT_INSTALL_CATCH_ALL_CONFIG=true bash /dev/stdin --also-install \
     # Store versions in the VERSION file.
