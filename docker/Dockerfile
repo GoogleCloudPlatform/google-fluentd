@@ -3,7 +3,7 @@ FROM debian:10.13-slim
 # Default google-fluentd to the latest stable.
 # Use `docker build --build-arg REPO_SUFFIX=<CUSTOM_REPO_SUFFIX>` to override
 # the version.
-ARG REPO_SUFFIX=20230605-1
+ARG REPO_SUFFIX=20230716-1
 
 ARG ARTIFACT_REGISTRY_REGION=
 
