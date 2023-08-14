@@ -181,6 +181,8 @@ Section "Install"
   ${If} $0 != "success"
     ${IfNot} ${Silent}
       MessageBox MB_OK "Failed to unzip: $0"
+    ${Else}
+      ${Print} "Failed to unzip: $0"
     ${EndIf}
     Abort
   ${EndIf}
