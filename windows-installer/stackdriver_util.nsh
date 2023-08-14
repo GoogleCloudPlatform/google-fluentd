@@ -37,7 +37,7 @@
     SetDetailsPrint lastused
 
     ; Restore $0
-    ; Stack: [orig $0 val, ...] -> [...] 
+    ; Stack: [orig $0 val, ...] -> [...]
     Pop $0
   FunctionEnd
 !macroend
@@ -68,9 +68,9 @@
 
 ;--------------------------------
 ; Defines ExecuteCommand and UnExecuteCommand (uninstaller functions)
-; 
+;
 ; Executes a command with the given parameters via cmd.exe.
-; 
+;
 ; Call with:
 ;   ${ExecuteCommand}   "Command" "Parameters"
 ;   ${UnExecuteCommand} "Command" "Parameters"
@@ -105,13 +105,13 @@
   Push "${Parameters}"
   Push "${Command}"
   Call ExecuteCommand
-  
+
   ; Get and log the return value of nsExec::Exec
   Pop $0
   ${Print} "nsExec::Exec return code: $0"
 
   ; Restore $0, $1, $2
-  ; Stack: [orig $2, orig $1, orig $0, ...] -> [...] 
+  ; Stack: [orig $2, orig $1, orig $0, ...] -> [...]
   Pop $2
   Pop $1
   Pop $0
@@ -123,13 +123,13 @@
   Push "${Parameters}"
   Push "${Command}"
   Call un.ExecuteCommand
-  
+
   ; Get and log the return value of nsExec::Exec
   Pop $0
   ${UnPrint} "nsExec::Exec return code: $0"
 
   ; Restore $0, $1, $2
-  ; Stack: [orig $2, orig $1, orig $0, ...] -> [...] 
+  ; Stack: [orig $2, orig $1, orig $0, ...] -> [...]
   Pop $2
   Pop $1
   Pop $0
@@ -145,11 +145,11 @@
 
 ;--------------------------------
 ; Defines RemoveOldVersion
-; 
+;
 ; Prompts the user the given program (name param) is already installed.
 ; If the candidate clicks 'OK' the uninstaller (uninstaller param) will
 ; be executed.  If they click 'Cancel' the install will be aborted.
-; 
+;
 ; Call with:
 ;   ${RemoveOldVersion}   "Name" "Full path to uninstall executable"
 ;--------------------------------
@@ -159,12 +159,12 @@
     "${name} is already installed.  Click 'OK' to remove the old \
     version and continue or 'Cancel' to exit the installer" \
     /SD IDOK \
-    IDOK remove IDCANCEL abort 
- 
+    IDOK remove IDCANCEL abort
+
   ; The user does not want to unintall, abort the installer.
   abort:
     Abort
-   
+
   ; Uninstall the program, honor silent options.
   remove:
     ${If} ${Silent}
@@ -180,13 +180,13 @@
 ; END RemoveOldVersion
 ;--------------------------------
 
- 
+
 ;--------------------------------
 ; Defines RegisterUninstallSoftware
-; 
+;
 ; Registers the software in the uninstall registry, installs for the current
 ; user or for the local machine based on install preferences.
-; 
+;
 ; Call with:
 ;   ${RegisterUninstallSoftware} "Software Name" "SoftwareName" "Uninstaller location"
 ;       "Absolute path to icon" "Company name" "Estimated size in KB" "Version of agent"
@@ -195,7 +195,7 @@
   ; Store global var $0 on the stack and copy the reg key to $0
   Push $0
   StrCpy $0 "${UNINST_REG_KEY}\${compressedName}"
-  
+
   ; Write all the needed register information
   WriteRegStr HKLM "$0" "DisplayName" "${displayName}"
   WriteRegStr HKLM "$0" "UninstallString" "${uninstaller}"
@@ -204,34 +204,34 @@
   WriteRegStr HKLM "$0" "Publisher" "${company}"
   WriteRegDWORD HKLM "$0" "EstimatedSize" "${sizeKB}"
   WriteRegStr HKLM "$0" "Version" "${version}"
-  
+
   ; We do not allow modifying or reparing an install
   WriteRegDWORD HKLM "$0" "NoModify" 1
   WriteRegDWORD HKLM "$0" "NoRepair" 1
-  
+
   ; Restore the $0 global var
   Pop $0
  !macroend
- 
+
 ; Define the RegisterUninstallSoftware function for ease of calling
 !define RegisterUninstallSoftware "!insertmacro _STACKDRIVER_REGISTER_UNINSTALL_SOFTWARE_MACRO"
  ;--------------------------------
 ; END RegisterUninstallSoftware
 ;--------------------------------
- 
- 
+
+
 ;--------------------------------
 ; Defines RemoveRegisterUninstallSoftware
-; 
+;
 ; Removes the registration for the software in the uninstall registry.
-; 
+;
 ; Call with:
 ;   ${RemoveRegisterUninstallSoftware} "SoftwareName"
 ;--------------------------------
-!macro _STACKDRIVER_REMOVE_REGISTER_UNINSTALL_SOFTWARE_MACRO name 
+!macro _STACKDRIVER_REMOVE_REGISTER_UNINSTALL_SOFTWARE_MACRO name
   DeleteRegKey HKLM "${UNINST_REG_KEY}\${name}"
 !macroend
- 
+
  ; Define the RemoveRegisterUninstallSoftware function for ease of calling.
 !define RemoveRegisterUninstallSoftware "!insertmacro _STACKDRIVER_REMOVE_REGISTER_UNINSTALL_SOFTWARE_MACRO"
 ;--------------------------------
