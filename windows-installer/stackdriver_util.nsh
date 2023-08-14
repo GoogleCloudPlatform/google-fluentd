@@ -149,7 +149,6 @@
 ; Prompts the user the given program (name param) is already installed.
 ; If the candidate clicks 'OK' the uninstaller (uninstaller param) will
 ; be executed.  If they click 'Cancel' the install will be aborted.
-; NOTE: Does not support silent notification if an old version is installed.
 ; 
 ; Call with:
 ;   ${RemoveOldVersion}   "Name" "Full path to uninstall executable"
@@ -159,6 +158,7 @@
   MessageBox MB_OKCANCEL \
     "${name} is already installed.  Click 'OK' to remove the old \
     version and continue or 'Cancel' to exit the installer" \
+    /SD IDOK \
     IDOK remove IDCANCEL abort 
  
   ; The user does not want to unintall, abort the installer.
