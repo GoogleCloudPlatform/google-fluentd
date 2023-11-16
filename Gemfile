@@ -19,9 +19,6 @@ gem 'open_uri_redirections', '0.2.1'
 gem 'test-kitchen',    '~> 2.4'
 gem 'kitchen-vagrant', '~> 1.6'
 
-# b/310663890: Temporarily pin unf_ext to avoid compilation errors.
-gem 'unf_ext', '0.0.8.2'
-
 group :test do
   gem 'rake', '~> 13.0.6'
   gem 'serverspec', '~> 2.18.0'
