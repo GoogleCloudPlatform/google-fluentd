@@ -27,5 +27,5 @@ RUN apt-get -y update \
  && /bin/bash get-rvm-io.sh stable \
  && rm -f get-rvm-io.sh \
  # RVM requires running in a login shell.
- && /bin/bash -l -c "rvm requirements && rvm install 3.1.2 && gem install bundler --no-document && gem update --no-document" \
+ && /bin/bash -l -c "rvm requirements && rvm install 3.3.5 && gem install bundler --no-document && gem update --no-document" \
  && apt-get -y clean
