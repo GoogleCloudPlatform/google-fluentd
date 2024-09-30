@@ -26,13 +26,13 @@ license_file "LEGAL"
 # - the current status of 2.3.x is that it downloads but fails to compile.
 # - verify that all ffi libs are available for your version on all platforms.
 
-# Note: When updating Ruby minor version (i.e. 2.2 -> 2.3), gem_dir_version must be
-# updated to 2.X.0 in the following file paths:
+# Note: When updating Ruby minor version (i.e. 3.2 -> 3.3), gem_dir_version must be
+# updated to 3.X.0 in the following file paths:
 #   config/software/td.rb
 #   config/software/td-agent-cleanup.rb
 #   config/software/td-agent-files.rb
 #   config/software/td-agent-ui.rb
-default_version "3.1.2"
+default_version "3.3.5"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
@@ -51,15 +51,34 @@ dependency "libiconv"
 dependency "jemalloc"
 
 # The SHA256 checksums below are for the *.tar.gz packages from https://www.ruby-lang.org/en/downloads/releases.
+version("3.3.5")      { source sha256: "3781a3504222c2f26cb4b9eb9c1a12dbf4944d366ce24a9ff8cf99ecbce75196" }
+version("3.3.4")      { source sha256: "fe6a30f97d54e029768f2ddf4923699c416cdbc3a6e96db3e2d5716c7db96a34" }
+version("3.3.3")      { source sha256: "83c05b2177ee9c335b631b29b8c077b4770166d02fa527f3a9f6a40d13f3cce2" }
+version("3.3.2")      { source sha256: "3be1d100ebf2a0ce60c2cd8d22cd9db4d64b3e04a1943be2c4ff7b520f2bcb5b" }
+version("3.3.1")      { source sha256: "8dc2af2802cc700cd182d5430726388ccf885b3f0a14fcd6a0f21ff249c9aa99" }
+version("3.3.0")      { source sha256: "96518814d9832bece92a85415a819d4893b307db5921ae1f0f751a9a89a56b7d" }
+
+version("3.2.5")      { source sha256: "ef0610b498f60fb5cfd77b51adb3c10f4ca8ed9a17cb87c61e5bea314ac34a16" }
+version("3.2.4")      { source sha256: "c72b3c5c30482dca18b0f868c9075f3f47d8168eaf626d4e682ce5b59c858692" }
+version("3.2.3")      { source sha256: "af7f1757d9ddb630345988139211f1fd570ff5ba830def1cc7c468ae9b65c9ba" }
+version("3.2.2")      { source sha256: "96c57558871a6748de5bc9f274e93f4b5aad06cd8f37befa0e8d94e7b8a423bc" }
+version("3.2.1")      { source sha256: "13d67901660ee3217dbd9dd56059346bd4212ce64a69c306ef52df64935f8dbd" }
+version("3.2.0")      { source sha256: "daaa78e1360b2783f98deeceb677ad900f3a36c0ffa6e2b6b19090be77abc272" }
+
+version("3.1.6")      { source sha256: "0d0dafb859e76763432571a3109d1537d976266be3083445651dc68deed25c22" }
+version("3.1.5")      { source sha256: "3685c51eeee1352c31ea039706d71976f53d00ab6d77312de6aa1abaf5cda2c5" }
+version("3.1.4")      { source sha256: "a3d55879a0dfab1d7141fdf10d22a07dbf8e5cdc4415da1bde06127d5cc3c7b6" }
 version("3.1.3")      { source sha256: "5ea498a35f4cd15875200a52dde42b6eb179e1264e17d78732c3a57cd1c6ab9e" }
 version("3.1.2")      { source sha256: "61843112389f02b735428b53bb64cf988ad9fb81858b8248e22e57336f24a83e" }
 version("3.1.1")      { source sha256: "fe6e4782de97443978ddba8ba4be38d222aa24dc3e3f02a6a8e7701c0eeb619d" }
+
 version("3.0.5")      { source sha256: "9afc6380a027a4fe1ae1a3e2eccb6b497b9c5ac0631c12ca56f9b7beb4848776" }
 version("3.0.4")      { source sha256: "70b47c207af04bce9acea262308fb42893d3e244f39a4abc586920a1c723722b" }
 version("3.0.3")      { source sha256: "3586861cb2df56970287f0fd83f274bd92058872d830d15570b36def7f1a92ac" }
 version("3.0.2")      { source sha256: "5085dee0ad9f06996a8acec7ebea4a8735e6fac22f22e2d98c3f2bc3bef7e6f1" }
 version("3.0.1")      { source sha256: "369825db2199f6aeef16b408df6a04ebaddb664fb9af0ec8c686b0ce7ab77727" }
 
+version("2.7.8")      { source sha256: "c2dab63cbc8f2a05526108ad419efa63a67ed4074dbbcf9fc2b1ca664cb45ba0" }
 version("2.7.7")      { source sha256: "e10127db691d7ff36402cfe88f418c8d025a3f1eea92044b162dd72f0b8c7b90" }
 version("2.7.6")      { source sha256: "e7203b0cc09442ed2c08936d483f8ac140ec1c72e37bb5c401646b7866cb5d10" }
 
