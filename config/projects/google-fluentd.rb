@@ -53,6 +53,10 @@ when "linux"
     runtime_dependency "insserv-compat"
     # sysvinit-tools is required for insserv-compat, but isn't a dependency
     runtime_dependency "sysvinit-tools"
+    # systemd-sysvcompat is required for providing
+    # /usr/lib/systemd/systemd-sysv-install, which is needed for init.d and
+    # is missing from SLES 15.6 onwards (b/372000696)
+    runtime_dependency "systemd-sysvcompat"
   end
 end
 
