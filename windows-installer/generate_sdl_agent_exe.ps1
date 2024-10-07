@@ -139,7 +139,7 @@ Set-PSDebug -Trace 1
 ##############################
 
 # Install ruby to the main install location and wait for it to finish.
-& $RUBY_INSTALLER /verysilent /tasks="assocfiles,modpath" /dir=$SD_LOGGING_AGENT_DIR | Out-Null
+& $RUBY_INSTALLER /verysilent /tasks="assocfiles,modpath" /dir=$SD_LOGGING_AGENT_DIR /currentuser | Out-Null
 
 # Remove the ruby uninstallers and the installer.
 rm $SD_LOGGING_AGENT_DIR\unins*
