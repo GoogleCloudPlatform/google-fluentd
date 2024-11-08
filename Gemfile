@@ -20,7 +20,8 @@ gem 'test-kitchen',    '~> 2.4'
 gem 'kitchen-vagrant', '~> 1.6'
 
 gem 'tzinfo', '>= 1.2.10'
-gem 'yajl-ruby', '>=1.3.1'
+gem 'yajl-ruby', '>= 1.3.1'
+gem 'http_parser', '>= 0.8.0'
 
 group :test do
   gem 'rake', '~> 13.0.6'
