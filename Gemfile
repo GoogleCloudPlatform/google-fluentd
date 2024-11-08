@@ -19,6 +19,9 @@ gem 'open_uri_redirections', '0.2.1'
 gem 'test-kitchen',    '~> 2.4'
 gem 'kitchen-vagrant', '~> 1.6'
 
+gem 'tzinfo', '>= 1.2.10'
+gem 'yajl-ruby', '>=1.3.1'
+
 group :test do
   gem 'rake', '~> 13.0.6'
   gem 'serverspec', '~> 2.18.0'
