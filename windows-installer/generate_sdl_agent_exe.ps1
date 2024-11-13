@@ -22,7 +22,7 @@ Param(
 #  TRACING AND ERROR HANDLING
 ##############################
 
-Set-PSDebug -Trace 1
+Set-PSDebug -Trace 2
 $ErrorActionPreference = 'Stop'
 
 ##############################
@@ -32,7 +32,7 @@ $ErrorActionPreference = 'Stop'
 # Just install into current directory for simplicity.
 $BASE_INSTALLER_DIR = [string](Get-Location)
 # Re-enable tracing.
-Set-PSDebug -Trace 1
+Set-PSDebug -Trace 2
 
 # The path of where ruby and all gems will be.  This is the portion that will be
 # packaged and zipped up.
@@ -68,7 +68,7 @@ $NSIS_LOCATE_ZIP = $BASE_INSTALLER_DIR + "\NSISlocate.zip"
 
 
 # Links for each installer.
-$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.5-1/rubyinstaller-devkit-3.3.5-1-x64.exe"
+$RUBY_INSTALLER_LINK = "https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.5-1/rubyinstaller-devkit-3.3.5-1-x86.exe"
 $NSIS_INSTALLER_LINK = "https://downloads.sourceforge.net/project/nsis/NSIS%203/3.0/nsis-3.0-setup.exe"
 $NSIS_UNZU_INSTALLER_LINK = "https://nsis.sourceforge.io/mediawiki/images/5/5a/NSISunzU.zip"
 $NSIS_LOCATE_INSTALLER_LINK = "https://nsis.sourceforge.io/mediawiki/images/a/af/Locate.zip"
@@ -104,6 +104,9 @@ $STACKDRIVER_ZIP = $PSScriptRoot + "\GoogleStackdriverLoggingAgent.zip"
 # where ever this script is run from.
 $STACKDRIVER_NSI = $PSScriptRoot + "\setup.nsi"
 
+$RIDK_CMD = $SD_LOGGING_AGENT_DIR + "\ridk_use\ridk.cmd"
+
+echo $RIDK_CMD
 
 ##############################
 #  STEP 1 - CREATE THE NEEDED DIRECTORIES.
@@ -124,14 +127,34 @@ mkdir $NSIS_LOCATE_DIR
 # No progress bars.
 $ProgressPreference = "silentlyContinue"
 # Handle SSL correctly.
-[Net.ServicePointManager]::SecurityProtocol = 'TLS12'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 # Pretend to be curl for Sourceforge redirects to work.
+echo $RUBY_INSTALLER_LINK
+
+echo $RUBY_INSTALLER
+
+echo $NSIS_INSTALLER_LINK
+
+echo $NSIS_INSTALLER
+
+echo $NSIS_UNZU_INSTALLER_LINK
+
+echo $NSIS_UNZU_ZIP
+
+echo $NSIS_LOCATE_INSTALLER_LINK
+
+echo $NSIS_LOCATE_ZIP
+
 Invoke-WebRequest "$RUBY_INSTALLER_LINK" -OutFile "$RUBY_INSTALLER" -UserAgent "curl/7.60.0"
+
 Invoke-WebRequest "$NSIS_INSTALLER_LINK" -OutFile "$NSIS_INSTALLER" -UserAgent "curl/7.60.0"
+
 Invoke-WebRequest "$NSIS_UNZU_INSTALLER_LINK" -OutFile "$NSIS_UNZU_ZIP" -UserAgent "curl/7.60.0"
+
 Invoke-WebRequest "$NSIS_LOCATE_INSTALLER_LINK" -OutFile "$NSIS_LOCATE_ZIP" -UserAgent "curl/7.60.0"
+
 # Re-enable tracing.
-Set-PSDebug -Trace 1
+Set-PSDebug -Trace 2
 
 
 ##############################
@@ -139,15 +162,18 @@ Set-PSDebug -Trace 1
 ##############################
 
 # Install ruby to the main install location and wait for it to finish.
-& $RUBY_INSTALLER /verysilent /tasks="assocfiles,modpath" /dir=$SD_LOGGING_AGENT_DIR /currentuser | Out-Null
+& $RUBY_INSTALLER /verysilent /tasks="assocfiles,modpath,ridkinstall" /dir=$SD_LOGGING_AGENT_DIR /currentuser | Out-Null
 
 # Remove the ruby uninstallers and the installer.
 rm $SD_LOGGING_AGENT_DIR\unins*
 rm $RUBY_INSTALLER
 
-
 # Update the environment paths.
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+dir $SD_LOGGING_AGENT_DIR
+
+& $RIDK_CMD enable
 
 
 ##############################
@@ -167,14 +193,17 @@ $gem_installer = $SRC_ROOT + '\bin\gem_installer'
 $core_gems_rb = $SRC_ROOT + '\core_gems.rb'
 $plugin_gems_rb = $SRC_ROOT + '\plugin_gems.rb'
 # Pin ffi version until https://github.com/ffi/ffi/issues/868 is resolved.
-& $GEM_CMD install ffi:1.14.1 --no-document
+& $GEM_CMD install ffi --no-document
 
 # Note: In order to update the Fluentd version, please update both here and also
 # the fluentd versions in
 # https://github.com/GoogleCloudPlatform/fluent-plugin-google-cloud/blob/master/fluent-plugin-google-cloud.gemspec
 # and
 # https://github.com/GoogleCloudPlatform/google-fluentd/blob/master/config/software/fluentd.rb
-& $GEM_CMD install fluentd:1.16.2 --no-document
+& $GEM_CMD install fluentd:1.17.0 --no-document
+
+# Get-Content T:/src/GoogleStackdriverLoggingAgent/lib/ruby/gems/3.3.0/extensions/x64-mingw-ucrt/3.3.0/yajl-ruby-1.4.3/gem_make.out
+
 & $RUBY_EXE $gem_installer $core_gems_rb
 & $RUBY_EXE $gem_installer $plugin_gems_rb
 
