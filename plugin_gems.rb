@@ -37,6 +37,6 @@ if windows?
   download "win32-service", "2.1.5"
   download "certstore_c", "0.1.7"
   download "fluent-plugin-windows-eventlog", "0.8.0"
-  download "nokogiri", "1.10.10"
+  download "nokogiri", "1.13.10"
   download "fluent-plugin-parser-winevt_xml", "0.2.2"
 end
