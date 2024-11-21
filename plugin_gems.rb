@@ -17,7 +17,7 @@ download "fluent-plugin-rewrite-tag-filter", "2.2.0"
 # The release candidate build will overwrite this gem with a gem version that is built from the master branch
 # later in the build pipeline.
 download "fluent-plugin-google-cloud", "0.13.2"
-download "fluent-plugin-detect-exceptions", "0.0.15"
+download "fluent-plugin-detect-exceptions", "0.0.16"
 # Keep this version compatible with
 # https://github.com/fluent/fluent-plugin-prometheus/blob/master/fluent-plugin-prometheus.gemspec
 download "prometheus-client", "0.9.0"
