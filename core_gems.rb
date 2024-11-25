@@ -2,7 +2,7 @@ dir 'core_gems'
 download "json", "2.6.3"
 download "msgpack", "1.7.3"
 download "cool.io", "1.9.0"
-download "http_parser.rb", "0.6.0"
+download "http_parser.rb", "0.8.0"
 download "yajl-ruby", "1.4.3"
 download "sigdump", "0.2.4"
 download "thread_safe", "0.3.5"
