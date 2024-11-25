@@ -2,7 +2,7 @@ dir 'plugin_gems'
 # The order of these dependencies matters due to how Ruby pulls dependencies.
 download "httpclient", "2.8.3"
 download "uuidtools", "2.1.5"
-download "jmespath", "1.4.0"
+download "jmespath", "1.6.2"
 download "aws-partitions", "1.149.0"
 download "aws-sigv4", "1.1.0"
 download "aws-sdk-core", "3.48.3"
