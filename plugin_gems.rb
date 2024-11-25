@@ -26,7 +26,7 @@ download "fluent-plugin-prometheus", "1.4.0"
 download "fluent-plugin-multi-format-parser", "1.0.0"
 download "fluent-plugin-record-reformer", "0.9.1"
 download "fluent-plugin-record-modifier", "2.0.1"
-download "fluent-plugin-kubernetes_metadata_filter", "2.5.2"
+download "fluent-plugin-kubernetes_metadata_filter", "3.5.1"
 download "systemd-journal", "1.4.2"
 download "fluent-plugin-systemd", "1.0.5"
 if windows?
