@@ -6,7 +6,7 @@ gem 'berkshelf', '~> 3.0'
 # Install omnibus software
 gem 'omnibus', :github => 'chef/omnibus'
 gem 'omnibus-software', :github => 'chef/omnibus-software'
-gem 'thor', '1.3.2', override: true
+gem 'thor', '1.3.2'
 
 gem 'kubeclient', '4.10.1'
 
