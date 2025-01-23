@@ -1,9 +1,11 @@
-FROM opensuse/leap:15.1
+FROM opensuse/leap:15.5
 
 RUN zypper -n refresh \
  && zypper -n install \
         # Needed for gpg2 and rvm installation.
         curl \
+        dirmngr \
+        procps \
         # Needed for agent build.
         autoconf \
         bzip2 \
@@ -27,5 +29,5 @@ RUN zypper -n refresh \
  # RVM requires running in a login shell.
  && /bin/bash -l -c "rvm requirements && rvm install 3.3.6 && gem install bundler --no-document && gem update --no-document" \
  # Pretend we're on SLES 15.
- && /bin/sed -i -e 's/VERSION="15.1"/VERSION="15-SP1"/' /etc/os-release \
+ && /bin/sed -i -e 's/VERSION="15.5"/VERSION="15-SP5"/' /etc/os-release \
  && zypper -n clean
