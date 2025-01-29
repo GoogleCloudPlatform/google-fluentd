@@ -115,7 +115,6 @@ that will allow you to build your projects on the following platforms:
 * Ubuntu 16.04 64-bit
 * Debian 7.10 64-bit
 * Debian 8.4 64-bit
-* Amazon Linux 2016.03 64-bit
 
 Please note this build-lab is only meant to get you up and running quickly;
 there's nothing inherent in Omnibus that restricts you to just building CentOS
@@ -213,7 +212,7 @@ your desired platform and execute the build steps listed above.
 
 The default build environment requires Test Kitchen and VirtualBox for local
 development. Test Kitchen also exposes the ability to provision instances using
-various cloud providers like AWS, DigitalOcean, or OpenStack. For more
+various cloud providers like DigitalOcean, or OpenStack. For more
 information, please see the [Test Kitchen documentation](http://kitchen.ci).
 
 Once you have tweaked your `.kitchen.yml` (or `.kitchen.local.yml`) to your
