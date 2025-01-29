@@ -159,16 +159,6 @@ $ vagrant up PLATFORM
 
 The complete list of valid platform names can be viewed with the `vagrant status` command.
 
-### Amazon Linux build
-
-You need to install vagrant-aws 0.5.0 and add `--provider` option to `vagrant up`.
-
-```sh
-AWS_SSH_KEY_PATH=/path/to/your_aws_key_file vagrant up amazon --provider=aws
-```
-
-After build package, you need to copy rpm file from ec2 instances. No automatic sync for now.
-
 ### pkg_build command
 
 You can build all environments via `bin/pkg_build` command.
