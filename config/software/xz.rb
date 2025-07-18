@@ -13,7 +13,8 @@ version "5.2.1" do
   source md5: "3e44c766c3fb4f19e348e646fcd5778a"
 end
 
-source url: "https://storage.googleapis.com/stackdriver-fluentd-vendor-storage/xz-#{version}.tar.gz"
+# Example: https://github.com/tukaani-project/xz/releases/download/v5.8.1/xz-5.8.1.tar.gz
+source url: "https://github.com/tukaani-project/xz/releases/download/v#{version}/xz-#{version}.tar.gz"
 
 relative_path "xz-#{version}"
 
