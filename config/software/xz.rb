@@ -1,5 +1,9 @@
 name "xz"
-default_version "5.2.3"
+default_version "5.8.1"
+
+version "5.8.1" do
+  source md5: "209cb25608ab0841f68df4d50d0faa22"
+end
 
 version "5.2.3" do
   source md5: "ef68674fb47a8b8e741b34e429d86e9d"
