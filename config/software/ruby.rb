@@ -32,7 +32,7 @@ license_file "LEGAL"
 #   config/software/td-agent-cleanup.rb
 #   config/software/td-agent-files.rb
 #   config/software/td-agent-ui.rb
-default_version "3.4.5"
+default_version "3.3.9"
 
 fips_enabled = (project.overrides[:fips] && project.overrides[:fips][:enabled]) || false
 
