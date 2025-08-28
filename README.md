@@ -115,7 +115,6 @@ that will allow you to build your projects on the following platforms:
 * Ubuntu 16.04 64-bit
 * Debian 7.10 64-bit
 * Debian 8.4 64-bit
-* Amazon Linux 2016.03 64-bit
 
 Please note this build-lab is only meant to get you up and running quickly;
 there's nothing inherent in Omnibus that restricts you to just building CentOS
@@ -158,16 +157,6 @@ $ vagrant up PLATFORM
 ```
 
 The complete list of valid platform names can be viewed with the `vagrant status` command.
-
-### Amazon Linux build
-
-You need to install vagrant-aws 0.5.0 and add `--provider` option to `vagrant up`.
-
-```sh
-AWS_SSH_KEY_PATH=/path/to/your_aws_key_file vagrant up amazon --provider=aws
-```
-
-After build package, you need to copy rpm file from ec2 instances. No automatic sync for now.
 
 ### pkg_build command
 
@@ -223,7 +212,7 @@ your desired platform and execute the build steps listed above.
 
 The default build environment requires Test Kitchen and VirtualBox for local
 development. Test Kitchen also exposes the ability to provision instances using
-various cloud providers like AWS, DigitalOcean, or OpenStack. For more
+various cloud providers like DigitalOcean, or OpenStack. For more
 information, please see the [Test Kitchen documentation](http://kitchen.ci).
 
 Once you have tweaked your `.kitchen.yml` (or `.kitchen.local.yml`) to your
