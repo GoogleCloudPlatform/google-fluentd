@@ -1,12 +1,13 @@
 # About
 
-[![Build Status](https://travis-ci.org/treasure-data/omnibus-td-agent.svg)](https://travis-ci.org/treasure-data/omnibus-td-agent)
+*This is a legacy agent.* While this agent is still supported, we recommend against using it for new Google Cloud workloads.
+Instead, we recommend that you use the [Ops Agent](https://cloud.google.com/logging/docs/agent/ops-agent) for new Google Cloud workloads and eventually transition your existing Compute Engine VMs to use the Ops Agent. The Ops Agent, which combines the collection of metrics and logging into a single agent, is the eventual replacement for the legacy agents.
 
 The event collector daemon, for Treasure Data. This daemon collects various types of logs/events via various way, and transfer them to the cloud. For more about Treasure Data, see the [homepage](http://treasuredata.com/), and the [documentation](http://docs.treasuredata.com/).
 
 td-agent is open sourced as [Fluentd project](http://github.com/fluent/). In other words, td-agent is a distribution package of Fluentd.
 
-td-agent package is based on [Omnibus-ruby](https://github.com/opscode/omnibus-ruby)
+td-agent package is based on [Omnibus-ruby](https://github.com/chef/omnibus-ruby)
 
 ## Installation
 
