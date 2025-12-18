@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'did_you_mean', '<2.0.0'
+
 # Use Berkshelf for resolving cookbook dependencies
 gem 'berkshelf', '~> 3.0'
 
