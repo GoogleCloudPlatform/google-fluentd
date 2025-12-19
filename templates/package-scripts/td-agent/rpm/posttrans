@@ -1,4 +1,2 @@
-if [ "$1" = "0" ] ; then
-  echo "Starting <%= project_name %> ..."
-  /sbin/service <%= project_name %> start >/dev/null 2>&1 || :
-fi
+echo "Starting <%= project_name %> ..."
+/sbin/service <%= project_name %> start >/dev/null 2>&1 || :
